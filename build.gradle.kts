@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.20.2-R0.1-SNAPSHOT")
 
     implementation(libs.twilight)
     implementation(libs.paperlib)
@@ -26,10 +26,20 @@ dependencies {
     implementation(libs.lamp.brigadier)
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
 tasks {
     build { dependsOn(shadowJar) }
     runServer { minecraftVersion("1.21.8") }
-    compileKotlin { kotlinOptions.jvmTarget = "21" }
+    compileKotlin { kotlinOptions.jvmTarget = "17" }
 
     shadowJar {
         relocate("kotlin", "gg.flyte.kotlin")
